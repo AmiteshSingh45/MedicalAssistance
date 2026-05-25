@@ -1,0 +1,99 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ─── Theme tokens for dark mode ─── */
+@variant dark (&:where(.dark, .dark *));
+
+/* ─── CSS Custom Properties ─── */
+:root {
+  --font-inter: 'Inter', sans-serif;
+}
+
+/* ─── Base ─── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Custom scrollbar ─── */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(203 213 225);
+  border-radius: 99px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgb(51 65 85);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(148 163 184);
+}
+
+/* ─── Prose overrides for markdown in AI responses ─── */
+.prose p {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.25rem;
+}
+.prose li {
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+.prose strong {
+  font-weight: 600;
+}
+.prose code:not(pre > code) {
+  font-size: 0.8em;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  background: rgb(241 245 249);
+  color: rgb(51 65 85);
+  font-weight: 500;
+}
+.dark .prose code:not(pre > code) {
+  background: rgb(30 41 59);
+  color: rgb(148 163 184);
+}
+.prose pre {
+  border-radius: 0.75rem;
+  padding: 1rem;
+  overflow-x: auto;
+  background: rgb(15 23 42);
+  color: rgb(226 232 240);
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ─── Animations ─── */
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+  70%  { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+
+/* ─── Full-height layout ─── */
+html,
+body {
+  height: 100%;
+}
