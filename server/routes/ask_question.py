@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Form
+from fastapi import APIRouter, Form, Depends
 from fastapi.responses import JSONResponse
 from modules.llm import get_llm_chain
 from modules.query_handlers import query_chain
@@ -9,13 +9,19 @@ from pinecone import Pinecone
 from pydantic import Field
 from typing import List
 from logger import logger
+from middlewares.auth import verify_api_token
+from middlewares.rate_limit import limiter
 import os
 
 router = APIRouter()
 
 
 @router.post("/ask/")
-async def ask_question(question: str = Form(...)):
+@limiter.limit("10/minute")
+async def ask_question(
+    question: str = Form(...),
+    _: bool = Depends(verify_api_token),
+):
     try:
         logger.info(f"user query: {question}")
 

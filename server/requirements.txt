@@ -2,6 +2,7 @@
 fastapi
 uvicorn[standard]
 python-multipart  # for file uploads
+slowapi
 
 # LangChain & Ecosystem
 langchain
